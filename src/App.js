@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
 import getWeb3 from './utils/getWeb3'
 
@@ -125,4 +126,10 @@ class App extends Component {
   }
 }
 
-export default App
+const mapStateToProps = state => ({
+  count: state.counter.count
+})
+
+export default connect(
+  mapStateToProps,
+)(App)
