@@ -1,4 +1,3 @@
-import SimpleStorageContract from '../../build/contracts/SimpleStorage.json'
 import {
   MetamaskLogIn,
   MetamaskLogOut,
@@ -24,21 +23,6 @@ function checkNetwork(store, web3) {
         store.dispatch(DisonnectWeb3Network())
     }
   })
-}
-
-function instantiateContract(store, web3) {
-  // const contract = require('truffle-contract')
-  // const simpleStorage = contract(SimpleStorageContract)
-  // simpleStorage.setProvider(web3.currentProvider)
-
-  // // Get accounts.
-  // web3.eth.getAccounts((error, accounts) => {
-  //   simpleStorage.deployed().then((instance) => {
-  //   }).catch((err) => {
-  //     // console.warn(err)
-  //     // store.dispatch(MetamaskLogOut())
-  //   })
-  // })
 }
 
 export const connectToWeb3Middleware = store => next => action => {

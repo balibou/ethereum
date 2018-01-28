@@ -7,14 +7,18 @@ const initialState = {
   },
   web3Network: {
     isConnected: false
-  }
+  },
+  spinner: false
 }
-
-// Connected = il y a une instance de web3
-// instanciated = on est sur le bon network
     
 export default (state = initialState, action) => {
   switch (action.type) {
+    // SPINNER
+    case 'SPINNER':
+      return {
+        ...state,
+        spinner: true
+      }
     // WEB3 CONNECTION
     case 'CONNECT_TO_WEB3_SUCCESS':
       return {
@@ -47,6 +51,7 @@ export default (state = initialState, action) => {
     case 'CONNECT_WEB3_NETWORK': {
       return {
         ...state,
+        spinner: false,
         web3Network: {
           isConnected: true
         }
@@ -55,6 +60,7 @@ export default (state = initialState, action) => {
     case 'DISCONNECT_WEB3_NETWORK': {
       return {
         ...state,
+        spinner: false,
         web3Network: {
           isConnected: false
         }

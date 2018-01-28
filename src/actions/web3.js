@@ -1,6 +1,9 @@
 import getWeb3 from '../utils/getWeb3'
 
 export const connectToWeb3 = () => (dispatch) => {
+  dispatch({
+    type: 'SPINNER'
+  });
   getWeb3
     .then(data => {
       dispatch({
