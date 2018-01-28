@@ -1,5 +1,10 @@
 import SimpleStorageContract from '../../build/contracts/SimpleStorage.json'
-import { MetamaskLogIn, MetamaskLogOut } from '../actions/web3'
+import {
+  MetamaskLogIn,
+  MetamaskLogOut,
+  ConnectWeb3Network,
+  DisonnectWeb3Network,
+} from '../actions/web3'
 
 function checkMetamaskLogin(store, web3) {
   setInterval(() => {
@@ -7,6 +12,18 @@ function checkMetamaskLogin(store, web3) {
     ? store.dispatch(MetamaskLogIn())
     : store.dispatch(MetamaskLogOut())
   }, 100);
+}
+
+function checkNetwork(store, web3) {
+  web3.version.getNetwork((err, netId) => {
+    switch (netId) {
+      case "4447":
+        store.dispatch(ConnectWeb3Network())
+        break
+      default:
+        store.dispatch(DisonnectWeb3Network())
+    }
+  })
 }
 
 function instantiateContract(store, web3) {
@@ -28,19 +45,8 @@ export const connectToWeb3Middleware = store => next => action => {
   if(action.type === 'CONNECT_TO_WEB3_SUCCESS') {
     next(action);
     const { web3 } = store.getState().web3;
-
-    // Check login
-    // web3.eth.getAccounts((err, accounts) => {
-    //   if(!accounts[0]) console.log('log out')
-    //   if(accounts[0]) console.log('log in')
-    // })
-
-    // Check server
-    // web3.version.getNetwork((err, netId) => {
-    //   console.warn(err, netId)
-    // })
-    // instantiateContract(store, web3)
     checkMetamaskLogin(store, web3)
+    checkNetwork(store, web3)
   } else {
     return next(action)
   }

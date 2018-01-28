@@ -26,3 +26,15 @@ export const MetamaskLogIn = () => (dispatch) => {
     type: 'METAMASK_LOG_IN'
   });
 };
+
+export const ConnectWeb3Network = () => (dispatch) => {
+  return dispatch({
+    type: 'CONNECT_WEB3_NETWORK'
+  });
+};
+
+export const DisonnectWeb3Network = () => (dispatch) => {
+  return dispatch({
+    type: 'DISCONNECT_WEB3_NETWORK'
+  });
+};

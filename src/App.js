@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { connectToWeb3 } from './actions/web3'
-import { metamaskIsLoggedInSelector, metamaskIsLoggingInSelector } from './selectors/metamask'
+import { metamaskIsLoggedInSelector } from './selectors/metamask'
+import { web3NetworkIsConnectedSelector } from './selectors/web3Network'
 
 import './css/oswald.css'
 import './css/open-sans.css'
@@ -62,9 +63,15 @@ class App extends Component {
     //     </div>
     //   );
     // }
+    console.warn(this.props)
     if (this.props.metamaskLoggedIn){
+      if (this.props.web3NetworkIsConnected) {
+        return(
+          <div>You are logged in Metamask</div>
+        )
+      }
       return(
-        <div>You are logged in Metamask</div>
+        <div>Be sure to be on the good network</div>
       )
     }
     return (
@@ -76,7 +83,7 @@ class App extends Component {
 const mapStateToProps = state => ({
   count: state.counter.count,
   metamaskLoggedIn: metamaskIsLoggedInSelector(state.web3),
-  metamaskLoggingIn: metamaskIsLoggingInSelector(state.web3)
+  web3NetworkIsConnected: web3NetworkIsConnectedSelector(state.web3)
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

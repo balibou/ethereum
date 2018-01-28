@@ -4,6 +4,9 @@ const initialState = {
   metamask: {
     isLoggingIn: false,
     isLoggedIn: false
+  },
+  web3Network: {
+    isConnected: false
   }
 }
 
@@ -37,6 +40,23 @@ export default (state = initialState, action) => {
         ...state,
         metamask: {
           isLoggedIn: false
+        }
+      }
+    }
+    // WEB3 NETWORK STATUS
+    case 'CONNECT_WEB3_NETWORK': {
+      return {
+        ...state,
+        web3Network: {
+          isConnected: true
+        }
+      }
+    }
+    case 'DISCONNECT_WEB3_NETWORK': {
+      return {
+        ...state,
+        web3Network: {
+          isConnected: false
         }
       }
     }
